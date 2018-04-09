@@ -150,8 +150,8 @@ void sha512Compute32b_parallel(uint64_t *data[SHA512_PARALLEL_N], uint64_t *dige
                             SIGMA4(block[n][i - 2]) + block[n][i - 7])
 
 #define ROUND512(a,b,c,d,e,f,g,h)   \
-    T0 += (h[0]) + SIGMA2(e[0]) + Ch((e[0]), (f[0]), (g[0])) + k[i]; \
-    T1 += (h[1]) + SIGMA2(e[1]) + Ch((e[1]), (f[1]), (g[1])) + k[i]; \
+    T0 += (h[0]) + SIGMA2(e[0]) + Ch((e[0]), (f[0]), (g[0])) + _mm_set1_epi64x( k[i] ); \
+    T1 += (h[1]) + SIGMA2(e[1]) + Ch((e[1]), (f[1]), (g[1])) + _mm_set1_epi64x( k[i] ); \
     (d[0]) += T0; \
     (d[1]) += T1; \
     (h[0]) = T0 + SIGMA1(a[0]) + Maj((a[0]), (b[0]), (c[0])); \
