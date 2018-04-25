@@ -51,11 +51,13 @@ rm -f config.status
 CFLAGS="-O3 -march=corei7-avx -Wall" ./configure $F 
 make 
 strip -s cpuminer.exe
-mv cpuminer.exe release/cpuminer-aes-avx.exe
+mv cpuminer.exe release/cpuminer-avx.exe
 
+# -march=westmere is supported in gcc5
 make clean || echo clean
 rm -f config.status
-CFLAGS="-O3 -maes -msse4.2 -Wall" ./configure $F
+CFLAGS="-O3 -march=westmere -Wall" ./configure $F
+#CFLAGS="-O3 -maes -msse4.2 -Wall" ./configure $F
 make 
 strip -s cpuminer.exe
 mv cpuminer.exe release/cpuminer-aes-sse42.exe
